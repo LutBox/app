@@ -1,18 +1,14 @@
 {
     "welcomeFile": "index.html",
-    "authenticationMethod": "route",
+    "authenticationMethod": "none",
     "routes": [
         {
             "source": "^/catalog/(.*)$",
-            "authenticationType": "xsuaa",
-            "scope": "$XSAPPNAME.Viewer",
             "destination": "srv"
         }
         ,
         {
             "source": "^/(.*)$",
-            "authenticationType": "xsuaa",
-            "scope": "$XSAPPNAME.Viewer",
             "localDir": "resources"
         }
     ]

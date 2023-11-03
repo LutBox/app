@@ -1,6 +1,6 @@
 _schema-version: '3.2'
 ID: app
-version: 0.0.2
+version: 0.0.1
 
 parameters:
   enable-parallel-deployments: true
@@ -11,8 +11,6 @@ build-parameters:
       commands:
         - npm install --production
         - npx -p @sap/cds-dk cds build --production
-#        - npx rimraf gen/db/src/gen/data
-#        - npx rimraf gen/db/src/gen/ccv
 
 modules:
   # ---------------- DATABASE DEPLOYER MODULE ------------------
@@ -31,7 +29,7 @@ modules:
       memory: 256M
       disk-quota: 1024M
     requires:
-#      - name: app-uaa
+      - name: app-uaa
       - name: app-db
 
 
@@ -51,7 +49,7 @@ modules:
       memory: 512M
       disk-quota: 1024M
     requires:
-#      - name: app-uaa
+      - name: app-uaa
       - name: app-dest
       - name: app-db
     provides:
@@ -77,25 +75,23 @@ modules:
       memory: 256M
       disk-quota: 1024M
     requires:
-#      - name: app-uaa
       - name: srv-api
         group: destinations
         properties:
           name: srv
           url: ~{srv-url}
           timeout: 600000
-          forwardAuthToken: true
 
 
 resources:
   # ----------------------- UAA SERVICE ------------------------
-#  - name: app-uaa
+  - name: app-uaa
   # ------------------------------------------------------------
-#    type: org.cloudfoundry.managed-service
-#    parameters:
-#      service: xsuaa
-#      service-plan: application
-#      path: ./xs-security.json
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
 
   # -------------------- DESTINATION SERVICE -------------------
   - name: app-dest

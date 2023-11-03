@@ -13,7 +13,6 @@
     "hdb": "^0.19",
 
     "@sap-cloud-sdk/http-client": "latest",
-    "@sap/xsenv": "^3",
     "@sap/xssec": "^3",
     "passport": "^0.4.1",
 
@@ -56,34 +55,8 @@
   },
   "cds": {
     "requires": {
-      "uaa": {
-        "kind": "xsuaa"
-      },
       "auth": {
-        "[production]": {
-          "strategy": "JWT"
-        },
-        "[development]": {
-          "strategy": "mock",
-          "users": {
-            "joe": {
-              "roles": [
-                "Admin",
-                "Viewer"
-              ]
-            },
-            "julie": {
-              "roles": [
-                "Viewer"
-              ]
-            },
-            "bob": {
-              "roles": [
-                "Viewer"
-              ]
-            }
-          }
-        }
+        "restrict_all_services": false
       }
       ,
       "db": {
