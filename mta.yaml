@@ -31,7 +31,7 @@ modules:
       memory: 256M
       disk-quota: 1024M
     requires:
-      - name: app-uaa
+#      - name: app-uaa
       - name: app-db
 
 
@@ -51,7 +51,7 @@ modules:
       memory: 512M
       disk-quota: 1024M
     requires:
-      - name: app-uaa
+#      - name: app-uaa
       - name: app-dest
       - name: app-db
     provides:
@@ -77,7 +77,7 @@ modules:
       memory: 256M
       disk-quota: 1024M
     requires:
-      - name: app-uaa
+#      - name: app-uaa
       - name: srv-api
         group: destinations
         properties:
@@ -89,13 +89,13 @@ modules:
 
 resources:
   # ----------------------- UAA SERVICE ------------------------
-  - name: app-uaa
+#  - name: app-uaa
   # ------------------------------------------------------------
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
+#    type: org.cloudfoundry.managed-service
+#    parameters:
+#      service: xsuaa
+#      service-plan: application
+#      path: ./xs-security.json
 
   # -------------------- DESTINATION SERVICE -------------------
   - name: app-dest
