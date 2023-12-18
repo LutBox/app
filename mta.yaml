@@ -50,7 +50,7 @@ modules:
       disk-quota: 1024M
     requires:
       - name: app-uaa
-      - name: app-dest
+      - name: app-logging
       - name: app-db
     provides:
       - name: srv-api
@@ -75,12 +75,15 @@ modules:
       memory: 256M
       disk-quota: 1024M
     requires:
+      - name: app-uaa
       - name: srv-api
         group: destinations
         properties:
           name: srv
           url: ~{srv-url}
           timeout: 600000
+          forwardAuthToken: true
+      - name: app-logging
 
 
 resources:
@@ -93,26 +96,6 @@ resources:
       service-plan: application
       path: ./xs-security.json
 
-  # -------------------- DESTINATION SERVICE -------------------
-  - name: app-dest
-  # ------------------------------------------------------------
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: destination
-      service-plan: lite
-      config:
-        init_data:
-          instance:
-            existing_destinations_policy: ignore
-            destinations:
-              - Name: app-NASA-api
-                Description: NASA APIs
-                URL: https://api.nasa.gov
-                Type: HTTP
-                ProxyType: Internet
-                Authentication: NoAuthentication
-                URL.queries.api_key: <SetValueInCockpit>
-                HTML5.DynamicDestination: true
 
 
 
@@ -130,4 +113,11 @@ resources:
 
 
 
+  # ---------------- APPLICATION LOGGING SERVICE ---------------
+  - name: app-logging
+  # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite
 

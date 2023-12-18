@@ -12,10 +12,11 @@
     "@sap/audit-logging": "5.7.1",
     "hdb": "^0.19",
 
-    "@sap-cloud-sdk/http-client": "latest",
+    "@sap/xsenv": "^3",
     "@sap/xssec": "^3",
     "passport": "^0.4.1",
 
+    "cf-nodejs-logging-support": "^6",
     "debug": "^4.3",
     "express": "^4"
   },
@@ -55,8 +56,34 @@
   },
   "cds": {
     "requires": {
+      "uaa": {
+        "kind": "xsuaa"
+      },
       "auth": {
-        "restrict_all_services": false
+        "[production]": {
+          "strategy": "JWT"
+        },
+        "[development]": {
+          "strategy": "mock",
+          "users": {
+            "joe": {
+              "roles": [
+                "Admin",
+                "Viewer"
+              ]
+            },
+            "julie": {
+              "roles": [
+                "Viewer"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "Viewer"
+              ]
+            }
+          }
+        }
       }
       ,
       "db": {
@@ -80,16 +107,16 @@
         ]
       }
       ,
-      "NearEarthObjectWebService": {
-        "kind": "rest",
-        "impl": "srv/external/NearEarthObjectWebService.js",
+      "API_SALES_ORDER_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_SALES_ORDER_SRV",
         "credentials": {
           "[production]": {
-            "destination": "app-NASA-api",
-            "path": "neo/rest/v1"
+            "destination": "app-API_SALES_ORDER_SRV",
+            "path": "s4hanacloud/sap/opu/odata/sap/API_SALES_ORDER_SRV"
           },
           "[development]": {
-            "url": "https://api.nasa.gov/neo/rest/v1"
+            "url": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_SALES_ORDER_SRV"
           }
         }
       }
